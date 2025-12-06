@@ -1,0 +1,35 @@
+{
+  "name": "dmind-obs-plugin",
+  "version": "0.1.0",
+  "description": "DMind Obsidian Plugin - AI Agent 集成",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "version": "node version-bump.mjs && git add manifest.json versions.json",
+    "test:e2e": "npx playwright test",
+    "test:e2e:ui": "npx playwright test --ui",
+    "test:e2e:headed": "npx playwright test --headed",
+    "automate": "node e2e/obsidian.spec.js"
+  },
+  "keywords": [
+    "obsidian",
+    "plugin",
+    "ai",
+    "agent"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^16.11.6",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "builtin-modules": "^3.3.0",
+    "esbuild": "0.17.3",
+    "obsidian": "latest",
+    "playwright": "^1.57.0",
+    "tslib": "2.4.0",
+    "typescript": "4.7.4"
+  }
+}

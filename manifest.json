@@ -1,0 +1,10 @@
+{
+  "id": "dmind-obs",
+  "name": "DMind",
+  "version": "0.1.0",
+  "minAppVersion": "0.15.0",
+  "description": "AI Agent 集成 - 智能技术设计文档管理",
+  "author": "",
+  "authorUrl": "",
+  "isDesktopOnly": true
+}
