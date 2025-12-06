@@ -1,0 +1,48 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
+
+      - name: Download Obsidian AppImage
+        run: |
+          wget -q "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.7.7/Obsidian-1.7.7.AppImage" -O obsidian.AppImage
+          chmod +x obsidian.AppImage
+
+      - name: Run E2E tests with Xvfb
+        uses: coactions/setup-xvfb@v1
+        with:
+          run: |
+            # 启动 Obsidian（使用 Xvfb 虚拟显示器）
+            ./obsidian.AppImage --remote-debugging-port=9222 &
+            sleep 10
+
+            # 运行测试
+            npm run test:e2e
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: screenshots/
